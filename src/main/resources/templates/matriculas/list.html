@@ -1,0 +1,42 @@
+<!-- matriculas/list.html: enrollment listing showing student, course, and status. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Matrículas')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<div class="container">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Matrículas</h2>
+        <a class="btn btn-primary" th:href="@{/matriculas/nova}">Nova Matrícula</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Aluno</th>
+            <th>Disciplina</th>
+            <th>Data</th>
+            <th>Situação</th>
+            <th>Nota Final</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${matriculas}">
+            <td th:text="${m.aluno.nome}"></td>
+            <td th:text="${m.disciplina.nome}"></td>
+            <td th:text="${m.dataMatricula}"></td>
+            <td th:text="${m.situacao}"></td>
+            <td th:text="${m.notaFinal}"></td>
+            <td>
+                <a class="btn btn-sm btn-secondary" th:href="@{'/matriculas/' + ${m.id} + '/editar'}">Editar</a>
+                <form th:action="@{'/matriculas/' + ${m.id} + '/remover'}" method="post" class="d-inline">
+                    <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Remover matrícula?');">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

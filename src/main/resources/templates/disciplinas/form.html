@@ -1,0 +1,38 @@
+<!-- disciplinas/form.html: form for creating or editing courses with validation feedback. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Disciplina')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<div class="container">
+    <h2 th:text="${disciplina.id} != null ? 'Editar Disciplina' : 'Nova Disciplina'"></h2>
+    <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+    <form th:action="@{/disciplinas}" th:object="${disciplina}" method="post" class="row g-3">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-md-4">
+            <label class="form-label">Código</label>
+            <input class="form-control" th:field="*{codigo}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
+        </div>
+        <div class="col-md-8">
+            <label class="form-label">Nome</label>
+            <input class="form-control" th:field="*{nome}" required>
+            <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Carga Horária</label>
+            <input class="form-control" type="number" th:field="*{cargaHoraria}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Semestre</label>
+            <input class="form-control" th:field="*{semestre}">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success" type="submit">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{/disciplinas}">Voltar</a>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

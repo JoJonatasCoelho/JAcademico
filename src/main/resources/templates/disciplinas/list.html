@@ -1,0 +1,41 @@
+<!-- disciplinas/list.html: lists courses with access-controlled delete. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: head('Disciplinas')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<div class="container">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Disciplinas</h2>
+        <a class="btn btn-primary" th:href="@{/disciplinas/nova}">Nova Disciplina</a>
+    </div>
+    <div th:if="${param.erro}" class="alert alert-danger" th:text="${param.erro}"></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nome</th>
+            <th>Carga Horária</th>
+            <th>Semestre</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="disciplina : ${disciplinas}">
+            <td th:text="${disciplina.codigo}"></td>
+            <td th:text="${disciplina.nome}"></td>
+            <td th:text="${disciplina.cargaHoraria}"></td>
+            <td th:text="${disciplina.semestre}"></td>
+            <td>
+                <a class="btn btn-sm btn-secondary" th:href="@{'/disciplinas/' + ${disciplina.id} + '/editar'}">Editar</a>
+                <form th:action="@{'/disciplinas/' + ${disciplina.id} + '/remover'}" method="post" class="d-inline">
+                    <button class="btn btn-sm btn-danger" type="submit" sec:authorize="hasRole('ADMIN')" onclick="return confirm('Remover disciplina?');">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

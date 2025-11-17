@@ -1,0 +1,46 @@
+<!-- matriculas/form.html: form for creating or editing enrollments with duplicate guard messages. -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head('Matrícula')"></head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<div class="container">
+    <h2 th:text="${matricula.id} != null ? 'Editar Matrícula' : 'Nova Matrícula'"></h2>
+    <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
+    <form th:action="@{/matriculas}" th:object="${matricula}" method="post" class="row g-3">
+        <input type="hidden" th:field="*{id}">
+        <div class="col-md-6">
+            <label class="form-label">Aluno</label>
+            <select class="form-select" th:field="*{alunoId}" required>
+                <option th:each="a : ${alunos}" th:value="${a.id}" th:text="${a.nome}"></option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Disciplina</label>
+            <select class="form-select" th:field="*{disciplinaId}" required>
+                <option th:each="d : ${disciplinas}" th:value="${d.id}" th:text="${d.nome}"></option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Data</label>
+            <input class="form-control" type="date" th:field="*{dataMatricula}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Situação</label>
+            <select class="form-select" th:field="*{situacao}">
+                <option th:each="s : ${situacoes}" th:value="${s}" th:text="${s}"></option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Nota Final</label>
+            <input class="form-control" type="number" step="0.01" th:field="*{notaFinal}">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success" type="submit">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{/matriculas}">Voltar</a>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
