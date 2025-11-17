@@ -4,6 +4,7 @@ package br.edu.ifce.jacademico.services;
 import br.edu.ifce.jacademico.dtos.AlunoDto;
 import br.edu.ifce.jacademico.entities.Aluno;
 import br.edu.ifce.jacademico.repositories.AlunoRepository;
+import br.edu.ifce.jacademico.repositories.MatriculaRepository;
 import br.edu.ifce.jacademico.security.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +15,11 @@ import java.util.List;
 public class AlunoService {
 
     private final AlunoRepository alunoRepository;
+    private final MatriculaRepository matriculaRepository;
 
-    public AlunoService(AlunoRepository alunoRepository) {
+    public AlunoService(AlunoRepository alunoRepository, MatriculaRepository matriculaRepository) {
         this.alunoRepository = alunoRepository;
+        this.matriculaRepository = matriculaRepository;
     }
 
     @Transactional(readOnly = true)
@@ -50,6 +53,8 @@ public class AlunoService {
 
     @Transactional
     public void remover(Long id) {
+        matriculaRepository.deleteAllByAlunoId(id);
+        System.out.println("Removendo matrículas do aluno ID: " + id);
         alunoRepository.delete(buscarPorId(id));
     }
 }

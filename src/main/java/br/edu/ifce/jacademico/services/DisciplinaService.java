@@ -3,6 +3,7 @@ package br.edu.ifce.jacademico.services;
 // DisciplinaService: enforces course business rules and role-based delete restriction.
 import br.edu.ifce.jacademico.dtos.DisciplinaDto;
 import br.edu.ifce.jacademico.entities.Disciplina;
+import br.edu.ifce.jacademico.repositories.MatriculaRepository;
 import br.edu.ifce.jacademico.repositories.DisciplinaRepository;
 import br.edu.ifce.jacademico.security.SecurityUtils;
 import org.springframework.security.core.Authentication;
@@ -16,9 +17,11 @@ import java.util.List;
 public class DisciplinaService {
 
     private final DisciplinaRepository disciplinaRepository;
+    private final MatriculaRepository matriculaRepository;
 
-    public DisciplinaService(DisciplinaRepository disciplinaRepository) {
+    public DisciplinaService(DisciplinaRepository disciplinaRepository, MatriculaRepository matriculaRepository) {
         this.disciplinaRepository = disciplinaRepository;
+        this.matriculaRepository = matriculaRepository;
     }
 
     @Transactional(readOnly = true)
@@ -56,6 +59,8 @@ public class DisciplinaService {
         if (isSecretaria) {
             throw new IllegalStateException("Secretaria não pode excluir disciplinas");
         }
+        // Delete enrollments explicitly to avoid unintended cascade behavior.
+        matriculaRepository.deleteAllByDisciplinaId(id);
         disciplinaRepository.delete(buscarPorId(id));
     }
 }

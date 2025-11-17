@@ -1,9 +1,9 @@
 <!-- matriculas/form.html: form for creating or editing enrollments with duplicate guard messages. -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Matrícula')"></head>
+<head th:replace="~{fragments/header :: head('Matrícula')}"></head>
 <body>
-<div th:replace="fragments/header :: navbar"></div>
+<div th:replace="~{fragments/header :: navbar}"></div>
 <div class="container">
     <h2 th:text="${matricula.id} != null ? 'Editar Matrícula' : 'Nova Matrícula'"></h2>
     <div th:if="${erro}" class="alert alert-danger" th:text="${erro}"></div>
@@ -41,6 +41,6 @@
         </div>
     </form>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!-- alunos/list.html: lists students with edit/delete actions. -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Alunos')"></head>
+<head th:replace="~{fragments/header :: head('Alunos')}"></head>
 <body>
-<div th:replace="fragments/header :: navbar"></div>
+<div th:replace="~{fragments/header :: navbar}"></div>
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
         <h2>Alunos</h2>
@@ -36,6 +36,6 @@
         </tbody>
     </table>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

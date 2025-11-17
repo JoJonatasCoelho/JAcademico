@@ -1,9 +1,9 @@
 <!-- home.html: landing page after login, linking to CRUD modules. -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/header :: head('Home')"></head>
+<head th:replace="~{fragments/header :: head('Home')}"></head>
 <body>
-<div th:replace="fragments/header :: navbar"></div>
+<div th:replace="~{fragments/header :: navbar}"></div>
 <div class="container">
     <div class="p-4 bg-white rounded shadow-sm">
         <h2>Bem-vindo ao Mini Sistema Acadêmico</h2>
@@ -21,6 +21,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

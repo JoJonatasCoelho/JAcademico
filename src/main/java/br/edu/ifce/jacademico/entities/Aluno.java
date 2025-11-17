@@ -2,9 +2,11 @@ package br.edu.ifce.jacademico.entities;
 
 // Aluno: student domain entity with validation and creator tracking.
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "alunos", uniqueConstraints = {
@@ -31,6 +33,10 @@ public class Aluno {
     private AlunoStatus status = AlunoStatus.ATIVO;
 
     private String createdBy;
+
+    // No cascade; services handle dependent enrollments explicitly before deletion.
+    @OneToMany(mappedBy = "aluno")
+    private Set<Matricula> matriculas = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -86,5 +92,13 @@ public class Aluno {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Set<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(Set<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }

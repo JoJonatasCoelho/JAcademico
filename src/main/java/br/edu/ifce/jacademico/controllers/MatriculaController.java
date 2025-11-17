@@ -70,7 +70,7 @@ public class MatriculaController {
     }
 
     @PostMapping("/{id}/remover")
-    public String remover(@PathVariable Long id) {
+    public String remover(@PathVariable("id") Long id) {
         matriculaService.remover(id);
         return "redirect:/matriculas";
     }

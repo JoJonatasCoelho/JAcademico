@@ -1,9 +1,9 @@
 <!-- matriculas/list.html: enrollment listing showing student, course, and status. -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head('Matrículas')"></head>
+<head th:replace="~{fragments/header :: head('Matrículas')}"></head>
 <body>
-<div th:replace="fragments/header :: navbar"></div>
+<div th:replace="~{fragments/header :: navbar}"></div>
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
         <h2>Matrículas</h2>
@@ -37,6 +37,6 @@
         </tbody>
     </table>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

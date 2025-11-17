@@ -6,4 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
     boolean existsByAlunoIdAndDisciplinaId(Long alunoId, Long disciplinaId);
+
+    void deleteAllByAlunoId(Long alunoId);
+
+    void deleteAllByDisciplinaId(Long disciplinaId);
 }

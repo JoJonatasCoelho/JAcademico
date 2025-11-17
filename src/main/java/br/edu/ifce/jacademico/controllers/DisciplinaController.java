@@ -60,7 +60,7 @@ public class DisciplinaController {
     }
 
     @PostMapping("/{id}/remover")
-    public String remover(@PathVariable Long id, Model model) {
+    public String remover(@PathVariable("id") Long id, Model model) {
         try {
             disciplinaService.remover(id);
         } catch (RuntimeException e) {

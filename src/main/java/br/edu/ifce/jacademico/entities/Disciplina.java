@@ -3,6 +3,8 @@ package br.edu.ifce.jacademico.entities;
 // Disciplina: course entity with uniqueness and creator tracking.
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "disciplinas", uniqueConstraints = {
@@ -24,6 +26,10 @@ public class Disciplina {
     private String semestre;
 
     private String createdBy;
+
+    // No cascade; services handle dependent enrollments explicitly before deletion.
+    @OneToMany(mappedBy = "disciplina")
+    private Set<Matricula> matriculas = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -71,5 +77,13 @@ public class Disciplina {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Set<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(Set<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }
